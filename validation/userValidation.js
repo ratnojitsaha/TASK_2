@@ -1,5 +1,6 @@
 const { z } = require('zod');
 
+//zod schema for password
 const passwordSchema = z
   .string()
   .min(8, "Password must be at least 8 characters long")
@@ -12,9 +13,28 @@ const userSchema = z.object({
   password: passwordSchema,
 });
 
-const loginSchema = z.object({
-  username: z.string(),
-  password: z.string(),
+// Zod schema for user registration
+const registrationSchema = z.object({
+  username: z.string().min(3, "Username must be at least 3 characters long"),
+  email: z.string().email("Invalid email format"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
-module.exports = { userSchema, loginSchema };
+// Zod schema for user login
+const loginSchema = z.object({
+  username: z.string().min(3, "Invalid username"),
+  password: z.string().min(6, "Invalid password"),
+});
+
+// Zod schema for password reset request
+const forgetPasswordSchema = z.object({
+  email: z.string().email("Invalid email"),
+});
+
+module.exports = {
+  userSchema,
+  registrationSchema,
+  loginSchema,
+  forgetPasswordSchema,
+  passwordSchema
+};

@@ -30,6 +30,7 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
+//READ OPERATIONS ---------
 // Get all posts
 router.get('/', async (req, res) => {
   try {
@@ -54,6 +55,7 @@ router.get('/:id', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch post' });
   }
 });
+
 
 // Update a post with Zod validation and JWT authentication
 router.put('/:id', authenticateToken, async (req, res) => {
@@ -80,6 +82,7 @@ router.put('/:id', authenticateToken, async (req, res) => {
     res.status(500).json({ error: 'Failed to update post' });
   }
 });
+
 
 // Delete a post with JWT authentication
 router.delete('/:id', authenticateToken, async (req, res) => {
